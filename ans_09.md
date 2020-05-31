@@ -28,7 +28,7 @@ $$
 
 #### 2. 求积分$\int_0^1 x^2 f(x)dx$的2点Gauss积分公式, 这里$x^2$为权重函数. (6分)
 
-解: 注意这一题是带权重函数的Gauss积分, 不能直接套书上的公式
+解: 注意这一题是带**权重函数**的Gauss积分, **不能**直接套书上关于Gauss-Legendre积分的公式
 
 求解Gauss积分的三个步骤,
 
@@ -100,7 +100,7 @@ $$
 
 &nbsp;
 
-解: (a)
+解: (a) 注意这里的$f(x, y) = -y \implies f(x_k, y_k) = y_k \neq y(x_k)$
 
 向前Euler公式为
 $$ y_{k+1} = y_k + hf(x_k, y_k) = y_k - \frac{1}{n} y_k = (1 - \frac{1}{n}) y_k $$
@@ -139,7 +139,10 @@ $$ y_n = (1 - \frac{2}{2n+1})^n y_0 = (1 - \frac{2}{2n+1})^n $$
 改进Euler公式
 $$ y_n = (1 - \frac{1}{n} + \frac{1}{2n^2})^n y_0 = (1 - \frac{1}{n} + \frac{1}{2n^2})^n $$
 
-\(c\) 易知原方程的解析解为$y(x) = e^{-x}$, 则真解$y(1) = \frac{1}{e}$, 下面验证$n \rightarrow \infty$时, 四种方法下近似值$y_n$的收敛性
+\(c\) 易知原方程的解析解为$y(x) = e^{-x}$, 则真解$y(1) = \frac{1}{e}$, 下面验证$n \rightarrow \infty$时, 四种方法下近似值$y_n$的收敛性,
+这里用到了数学分析中的一个极限
+
+$$ \lim\limits_{n\rightarrow \infty} (1 + \frac{1}{n})^n = e \implies \lim\limits_{n\rightarrow\infty}(1 - \frac{1}{n})^n = \frac{1}{e} $$
 
 向前Euler公式
 $$ \lim_{n \rightarrow \infty} y_n = \lim_{n \rightarrow \infty} (1 - \frac{1}{n})^n = \frac{1}{e} $$
