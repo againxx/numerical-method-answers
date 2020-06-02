@@ -95,7 +95,7 @@ $$
     \end{aligned}
 \right.
 $$
-解: Doolittle分解, $A = LU$, 其中$L$为单位下三角阵, $U$为上三角阵
+解: Doolittle分解, $A = LU$, 其中$L$为单位下三角阵, $U$为上三角阵 (课本85页, 4.7式)
 $$
 \begin{aligned}
     \begin{pmatrix}

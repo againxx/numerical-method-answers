@@ -25,7 +25,7 @@ $$
 
 (b) 讨论此时Jacobi迭代（方法）的收敛性. (6分)
 
-解: (a) Jacobi迭代矩阵
+解: (a) Jacobi迭代矩阵 (课本99页)
 $$
 \begin{aligned}
     R &= I - D^{-1}A \\
@@ -97,7 +97,8 @@ $$
 \right.
 $$
 
-(b) 迭代收敛的充分必要条件是迭代矩阵的谱半径$\rho(R) = \max\limits_{1\leq i \leq n}|\lambda_i| < 1$
+(b) 注意, A不是~~严格~~对角优, 不能以此作为收敛性的判断条件.
+迭代收敛的 **充分必要** 条件是迭代矩阵的谱半径$\rho(R) = \max\limits_{1\leq i \leq n}|\lambda_i| < 1$
 
 $$
 \begin{aligned}
@@ -166,7 +167,7 @@ $$
 \right.
 $$
 
-$\Rightarrow\,$Gauss-Seidel迭代的分量形式
+$\implies \,$Gauss-Seidel迭代的分量形式 (课本102页, 5.6式)
 
 $$
 \left\{
@@ -177,7 +178,7 @@ $$
 \end{aligned}
 \right.
 $$
-(b) Gauss-Seidel的分裂矩阵为
+(b) Gauss-Seidel的分裂矩阵为 (PPT ch5, 23页)
 
 $$
 Q = D + L = 

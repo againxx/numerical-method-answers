@@ -100,15 +100,15 @@ $$
 
 &nbsp;
 
-解: (a) 注意这里的$f(x, y) = -y \implies f(x_k, y_k) = y_k \neq y(x_k)$
+解: (a) 注意这里的$f(x, y) = -y \implies f(x_k, y_k) = f(x_{k+1}, y_k) = y_k \neq y(x_k)$
 
-向前Euler公式为
+向前Euler公式为 (课本140页, 7.2式)
 $$ y_{k+1} = y_k + hf(x_k, y_k) = y_k - \frac{1}{n} y_k = (1 - \frac{1}{n}) y_k $$
 
-向后Euler公式为
+向后Euler公式为 (课本142页, 7.3式)
 $$ y_{k+1} = y_k + hf(x_{k+1}, y_{k+1}) = y_k - \frac{1}{n} y_{k+1} \implies y_{k+1} = (1 - \frac{1}{n+1}) y_k $$
 
-梯形格式为
+梯形格式为 (课本146页)
 $$
 \begin{aligned}
     & y_{k+1} = y_k + \frac{h}{2}(f(x_k, y_k) + f(x_{k+1}, y_{k+1})) = y_k - \frac{1}{2n}(y_k + y_{k+1}) \\
@@ -116,7 +116,7 @@ $$
 \end{aligned}
 $$
 
-改进的Euler公式为
+改进的Euler公式为 (课本146页, 7.8式)
 $$
 \begin{aligned}
     y_{k+1} &= y_k + \frac{h}{2}(f(x_k, y_k) + f(x_{k+1}, y_k + hf(x_k, y_k))) \\
@@ -139,28 +139,28 @@ $$ y_n = (1 - \frac{2}{2n+1})^n y_0 = (1 - \frac{2}{2n+1})^n $$
 改进Euler公式
 $$ y_n = (1 - \frac{1}{n} + \frac{1}{2n^2})^n y_0 = (1 - \frac{1}{n} + \frac{1}{2n^2})^n $$
 
-\(c\) 易知原方程的解析解为$y(x) = e^{-x}$, 则真解$y(1) = \frac{1}{e}$, 下面验证$n \rightarrow \infty$时, 四种方法下近似值$y_n$的收敛性,
+\(c\) 易知原方程的解析解为$y(x) = e^{-x}$, 则真解$y(1) = \frac{1}{e}$, 下面验证$n \to \infty$时, 四种方法下近似值$y_n$的收敛性,
 这里用到了数学分析中的一个极限
 
-$$ \lim\limits_{n\rightarrow \infty} (1 + \frac{1}{n})^n = e \implies \lim\limits_{n\rightarrow\infty}(1 - \frac{1}{n})^n = \frac{1}{e} $$
+$$ \lim_{n \to \infty} (1 + \frac{1}{n})^n = e \implies \lim_{n \to \infty}(1 - \frac{1}{n})^n = \frac{1}{e} $$
 
 向前Euler公式
-$$ \lim_{n \rightarrow \infty} y_n = \lim_{n \rightarrow \infty} (1 - \frac{1}{n})^n = \frac{1}{e} $$
+$$ \lim_{n \to \infty} y_n = \lim_{n \to \infty} (1 - \frac{1}{n})^n = \frac{1}{e} $$
 
 向后Euler公式
-$$ \lim_{n \rightarrow \infty} y_n = \lim_{n \rightarrow \infty} (1 - \frac{1}{n+1})^n
-= \lim_{n \rightarrow \infty} (1 - \frac{1}{n+1})^{(n+1) \times \frac{n}{n+1}} = \frac{1}{e}$$
+$$ \lim_{n \to \infty} y_n = \lim_{n \to \infty} (1 - \frac{1}{n+1})^n
+= \lim_{n \to \infty} (1 - \frac{1}{n+1})^{(n+1) \times \frac{n}{n+1}} = \frac{1}{e}$$
 
 梯形公式
-$$ \lim_{n \rightarrow \infty} y_n = \lim_{n \rightarrow \infty} (1 - \frac{2}{2n+1})^n
-= \lim\limits_{n \rightarrow \infty} (1 - \frac{2}{2n+1})^{\frac{2n+1}{2} \times \frac{2n}{2n+1}} = \frac{1}{e}$$
+$$ \lim_{n \to \infty} y_n = \lim_{n \to \infty} (1 - \frac{2}{2n+1})^n
+= \lim_{n \to \infty} (1 - \frac{2}{2n+1})^{\frac{2n+1}{2} \times \frac{2n}{2n+1}} = \frac{1}{e}$$
 
 改进Euler公式
 $$
 \begin{aligned}
-    \lim\limits_{n \rightarrow \infty} y_n &= \lim\limits_{n \rightarrow \infty}(1 - \frac{1}{n} + \frac{1}{2n^2})^n
-    = \lim\limits_{n \rightarrow \infty}(1 - \frac{2n-1}{2n^2})^n \\
-    &= \lim\limits_{n \rightarrow \infty}(1 - \frac{2n-1}{2n^2})^{\frac{2n^2}{2n-1} \times \frac{2n^2-n}{2n^2}}
+    \lim_{n \to \infty} y_n &= \lim_{n \to \infty}(1 - \frac{1}{n} + \frac{1}{2n^2})^n
+    = \lim_{n \to \infty}(1 - \frac{2n-1}{2n^2})^n \\
+    &= \lim_{n \to \infty}(1 - \frac{2n-1}{2n^2})^{\frac{2n^2}{2n-1} \times \frac{2n^2-n}{2n^2}}
     = \frac{1}{e}
 \end{aligned}
 $$
