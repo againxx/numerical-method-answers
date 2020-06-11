@@ -52,7 +52,7 @@ $$
 $$ p_0(x) = 1 $$
 $$ p_1(x) = x - \frac{(x, p_0(x))}{(p_0(x), p_0(x))} p_0(x) = x - \frac{3}{4} $$
 其中, $(x, p_0(x)) = \int_0^1 x^3 dx = \frac{1}{4},\ (p_0(x), p_0(x)) = \int_0^1 x^2 dx = \frac{1}{3}$
-$$ p_2(x) = x^2 - \frac{(x^2, p_0(x))}{(p_0(x), p_0(x))}p_0(x) - \frac{(x^2, p_1(x))}{(p_1(x), p_1(x))}p_1(x) = x^2 - \frac{4}{3} + \frac{2}{5} $$
+$$ p_2(x) = x^2 - \frac{(x^2, p_0(x))}{(p_0(x), p_0(x))}p_0(x) - \frac{(x^2, p_1(x))}{(p_1(x), p_1(x))}p_1(x) = x^2 - \frac{4}{3} x + \frac{2}{5} $$
 其中, $(x^2, p_0(x)) = \int_0^1 x^4 dx = \frac{1}{5},\ (x^2, p_1(x)) = \int_0^1 x^5 - \frac{3}{4}x^4dx = \frac{1}{60}$
 $(p_1(x), p_1(x)) = \int_0^1 x^2(x - \frac{3}{4})^2 dx = \frac{1}{80}$
 
@@ -100,7 +100,7 @@ $$
 
 &nbsp;
 
-解: (a) 注意这里的$f(x, y) = -y \implies f(x_k, y_k) = f(x_{k+1}, y_k) = y_k \neq y(x_k)$
+解: (a) 注意这里的$f(x, y) = -y \implies f(x_k, y_k) = f(x_{k+1}, y_k) = -y_k \neq -y(x_k)$
 
 向前Euler公式为 (课本140页, 7.2式)
 $$ y_{k+1} = y_k + hf(x_k, y_k) = y_k - \frac{1}{n} y_k = (1 - \frac{1}{n}) y_k $$
