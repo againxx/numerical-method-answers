@@ -1,281 +1,155 @@
 # 课后作业7
 
-#### 1. 设有线性代数方程组$Ax=b$, 其中,
+#### 1. 构造积分$\bar{I}(f) = \int_{-h}^{2h}f(x)dx$的数值积分公式, $I(f) = a_{-1}f(-h) + a_0f(0) + a_1f(2h) \ (h>0)$使其具有尽可能高的代数精度, 该公式的代数精度是多少? (6分)
 
-$$
-A=
-\begin{pmatrix}
-    \begin{array}{rrrr}
-        2 & -1 & 0 & 0 \\
-        -1 & 2 & -1 & 0 \\
-        0 & -1 & 2 & -1 \\
-        0 & 0 & -1 & 2
-    \end{array}
-\end{pmatrix},\quad
-b=
-\begin{pmatrix}
-    2 \\
-    2 \\
-    2 \\
-    2
-\end{pmatrix}
-$$
-
-(a) 求Jacobi迭代的迭代矩阵及相应的迭代格式; (4分)
-
-(b) 讨论此时Jacobi迭代（方法）的收敛性. (6分)
-
-解: (a) Jacobi迭代矩阵 (课本99页)
-$$
-\begin{aligned}
-    R &= I - D^{-1}A \\
-      &= I -
-    \begin{pmatrix}
-        2 & & & \\
-        & 2 & & \\
-        & & 2 & \\
-        & & & 2
-    \end{pmatrix}^{-1}
-    \begin{pmatrix}
-        \begin{array}{rrrr}
-            2 & -1 & 0 & 0 \\
-            -1 & 2 & -1 & 0 \\
-            0 & -1 & 2 & -1 \\
-            0 & 0 & -1 & 2
-        \end{array}
-    \end{pmatrix} \\
-      &= I -
-    \begin{pmatrix}
-        \frac{1}{2} & & & \\
-        & \frac{1}{2} & & \\
-        & & \frac{1}{2} & \\
-        & & & \frac{1}{2}
-    \end{pmatrix}
-    \begin{pmatrix}
-        \begin{array}{rrrr}
-            2 & -1 & 0 & 0 \\
-            -1 & 2 & -1 & 0 \\
-            0 & -1 & 2 & -1 \\
-            0 & 0 & -1 & 2
-        \end{array}
-    \end{pmatrix} \\
-      &= I -
-    \begin{pmatrix}
-        \begin{array}{rrrr}
-            1 & -\frac{1}{2} & 0 & 0 \\
-            -\frac{1}{2} & 1 & -\frac{1}{2} & 0 \\
-            0 & -\frac{1}{2} & 1 & -\frac{1}{2} \\
-            0 & 0 & -\frac{1}{2} & 1
-        \end{array}
-    \end{pmatrix} \\
-      &=
-    \begin{pmatrix}
-        \begin{array}{rrrr}
-            0 & \frac{1}{2} & 0 & 0 \\
-            \frac{1}{2} & 0 & \frac{1}{2} & 0 \\
-            0 & \frac{1}{2} & 0 & \frac{1}{2} \\
-            0 & 0 & \frac{1}{2} & 0
-        \end{array}
-    \end{pmatrix} \\
-\end{aligned}
-$$
-
-迭代常数项向量 $g = D^{-1}b = (1, 1, 1, 1)^T$
-
-迭代格式的矩阵形式 $X^{(k+1)} = R X^{(k)} + g$
-
-分量形式:
+解: 由于数值积分公式中有三个未知数$a_{-1}, a_0, a_1$, 可假设其满足两阶代数精度, 令$f(x)$分别为$1, x, x^2$代入积分公式中
 
 $$
 \left\{
 \begin{aligned}
-    x_1^{(k+1)} &= \frac{1}{2} x_2^{(k)} + 1 \\
-    x_2^{(k+1)} &= \frac{1}{2} x_1^{(k)} + \frac{1}{2} x_3^{(k)} + 1 \\
-    x_3^{(k+1)} &= \frac{1}{2} x_2^{(k)} + \frac{1}{2} x_4^{(k)} + 1 \\
-    x_4^{(k+1)} &= \frac{1}{2} x_3^{(k)} + 1 \\
+    a_{-1} + a_0 + a_1 &= 3h = \int_{-h}^{2h}1 \cdot dx \\
+    -h a_{-1} + 2h a_1 &= \frac{3}{2}h^2 = \int_{-h}^{2h}xdx \\
+    h^2 a_{-1} + 4h^2 a_1 &= 3h^3 = \int_{-h}^{2h}x^2dx
+\end{aligned}
+\right.
+$$
+$$
+\Rightarrow
+\left\{
+\begin{aligned}
+    a_{-1} = 0 \\
+    a_0 = \frac{9}{4}h \\
+    a_1 = \frac{3}{4}h
 \end{aligned}
 \right.
 $$
 
-(b) 注意, A不是~~严格~~对角优, 不能以此作为收敛性的判断条件.
-迭代收敛的 **充分必要** 条件是迭代矩阵的谱半径$\rho(R) = \max\limits_{1\leq i \leq n}|\lambda_i| < 1$
+此时我们知道所求格式至少满足两阶代数精度, 但是最高的代数精度为多少?
 
+不要忘了再将$f(x) = x^3, x^4 \cdots$代入验证, 看所得格式的代数精度为多少
 $$
-\begin{aligned}
-    \det(\lambda I - R) &=
-    \begin{vmatrix}
-        \lambda & -\frac{1}{2} & & \\
-        -\frac{1}{2} & \lambda & -\frac{1}{2} & \\
-        & -\frac{1}{2} & \lambda & -\frac{1}{2} \\
-        & & -\frac{1}{2} & \lambda
-    \end{vmatrix} \\
-    &= \lambda
-    \begin{vmatrix}
-        \lambda & -\frac{1}{2} & \\
-        -\frac{1}{2} & \lambda & -\frac{1}{2} \\
-        & -\frac{1}{2} & \lambda
-    \end{vmatrix}
-    + \frac{1}{2}
-    \begin{vmatrix}
-        -\frac{1}{2} & -\frac{1}{2} & \\
-        & \lambda & -\frac{1}{2} \\
-        & -\frac{1}{2} & \lambda
-    \end{vmatrix} \\
-    &= \lambda(\lambda^3 - \frac{1}{2} \lambda) + \frac{1}{2}(-\frac{1}{2}(\lambda^2 - \frac{1}{4})) \\
-    &= \lambda^4 - \frac{3}{4} \lambda^2 + \frac{1}{16}
-\end{aligned}
+I(x^3) = \frac{3}{4}h \times 8h^3 = 6h^4 \neq \frac{17}{4}h^4 = \int_{-h}^{2h}x^3dx
 $$
-
-$$
-\Rightarrow \lambda^2 = \frac{3 \pm \sqrt{5}}{8}
-$$
-$$
-\Rightarrow |\lambda_1| = |\lambda_2| = \sqrt{\frac{3 + \sqrt{5}}{8}} = 0.809017, \ 
-|\lambda_3| = |\lambda_4| = \sqrt{\frac{3 - \sqrt{5}}{8}} = 0.309017
-$$
-
-故而, $\rho(R) = \max\limits_{1\leq i \leq 4}|\lambda_i| = 0.809017 < 1$, Jacobi迭代收敛.
+故该公式的代数精度为2
 
 ---
 
-#### 2. 设有线性代数方程组
+#### 2. 分别利用梯形公式和Simpson公式计算如下积分及其积分误差: (6分)
+$$
+\int_0^2 (x^3 + 5x) dx
+$$
+
+解: 梯形公式为 (课本113页, 6.1式)
+$$
+T(f) = \frac{b-a}{2}\lbrack f(a) + f(b) \rbrack
+$$
+$$
+\implies T(x^3 + 5x) = \frac{2}{2} \lbrack 0 + (2^3 + 5 \times 2) \rbrack = 18
+$$
+
+由梯形公式的误差公式 (课本114页, 6.2式)
+$$
+E_1(f) = -\frac{f''(\eta)}{12} (b-a)^3, \ a \leq \eta \leq b
+$$
+$$
+\implies E_1(x^3 + 5x) = -4\eta, \ 0 \leq \eta \leq 2
+$$
+
+Simpson公式为 (课本119页, 6.8式)
+$$
+S(f) = \frac{b-a}{6}\lbrack f(a) + 4f(\frac{a+b}{2})+ f(b) \rbrack
+$$
+$$
+\implies S(x^3 + 5x) = \frac{2}{6} \lbrack 0 + 4 \times (1 + 5) + (2^3 + 5 \times 2) \rbrack = 14
+$$
+
+由Simpson公式的误差公式 (课本115页, 6.4式)
+$$
+E_2(f) = -\frac{f^{(4)}(\eta)}{2880} (b-a)^5, \ a \leq \eta \leq b
+$$
+$$
+\implies E_2(x^3 + 5x) = 0
+$$
+
+
+---
+
+#### 3. 记$I(f) = \int_{-2}^2 f(x)dx$, 设$S(f(x))$为其数值积分公式, 其中, $I(f) \approx S(f(x)) = Af(-\alpha) + Bf(0) + Cf(\alpha)$,
+
+**a)** 试确定参数$A, B, C, \alpha$使得该数值积分公式具有尽可能高的代数精度, 并求该公式的代数精度(需给出求解过程); (5分)
+
+**b)** 设$f(x)$足够光滑(可微). 求该数值积分公式的误差. (5分)
+
+解: a) 法一: 将$f(x) = 1, x, x^2, x^3$分别代入原积分和数值积分公式, 得
 
 $$
 \left\{
 \begin{aligned}
-    5x_1 - 3x_2 + 2x_3 &= 5 \\
-    -3x_1 + 5x_2 + 2x_3 &= 5 \\
-    2x_1 + 2x_2 + 7x_3 &= 7
+    A + B + C &= 4 = \int_{-2}^2 1 \cdot dx \\
+    -\alpha A + \alpha C &= 0 = \int_{-2}^2 xdx \\
+    \alpha^2 A + \alpha^2 C &= \frac{16}{3} = \int_{-2}^2 x^2 dx \\
+    -\alpha^3 A + \alpha^3 C &= 0 = \int_{-2}^2 x^3 dx
 \end{aligned}
 \right.
 $$
 
-(a) 写出Gauss-Seidel迭代的分量形式; (5分)
-
-(b) 求Gauss-Seidel迭代的分裂矩阵(splitting matrix)及迭代矩阵(iteration matrix); (4分)
-
-\(c\) 讨论Gauss-Seidel迭代的收敛性(请给出理由或证明). (6分)
-
-解: (a) 原方程组可写为
-$$
-\left\{
-\begin{aligned}
-    x_1 &= \frac{1}{5}(3x_2 - 2x_3 + 5) \\
-    x_2 &= \frac{1}{5}(3x_1 - 2x_3 + 5) \\
-    x_3 &= \frac{1}{7}(-2x_1 - 2x_2 + 7)
-\end{aligned}
-\right.
-$$
-
-$\implies \,$Gauss-Seidel迭代的分量形式 (课本102页, 5.6式)
+通过观察可发现, 方程$-\alpha A + \alpha C = 0$两端同时乘以$\alpha^2$,
+可得方程$-\alpha^3 A + \alpha^3 C = 0$故上述线性方程组线性相关, 条件不足以解出4个未知数,
+需添加$f(x) = x^4$时的方程
 
 $$
 \left\{
 \begin{aligned}
-    x_1^{(k+1)} &= \frac{1}{5}(3x_2^{(k)} - 2x_3^{(k)} + 5) \\
-    x_2^{(k+1)} &= \frac{1}{5}(3x_1^{(k+1)} - 2x_3^{(k)} + 5) \\
-    x_3^{(k+1)} &= \frac{1}{7}(-2x_1^{(k+1)} - 2x_2^{(k+1)} + 7)
+    A + B + C &= 4 = \int_{-2}^2 1 \cdot dx \\
+    -\alpha A + \alpha C &= 0 = \int_{-2}^2 xdx \\
+    \alpha^2 A + \alpha^2 C &= \frac{16}{3} = \int_{-2}^2 x^2 dx \\
+    \alpha^4 A + \alpha^4 C &= \frac{64}{5} = \int_{-2}^2 x^4 dx
 \end{aligned}
 \right.
 $$
-(b) Gauss-Seidel的分裂矩阵为 (PPT ch5, 23页)
-
 $$
-Q = D + L = 
-\begin{pmatrix}
-    5 & 0 & 0 \\
-    -3 & 5 & 0 \\
-    2 & 2 & 7
-\end{pmatrix}
+\Rightarrow
+\left\{
+\begin{aligned}
+    &A = \frac{10}{9} \\
+    &B = \frac{16}{9} \\
+    &C = \frac{10}{9} \\
+    &\alpha = \pm \sqrt{\frac{12}{5}}
+\end{aligned}
+\right.
 $$
 
-Gauss-Seidel的迭代矩阵为
+为进一步确定代数精度, 将$f(x) = x^5, x^6, \cdots$代入积分公式
 $$
 \begin{aligned}
-    G &= I - Q^{-1}A = -(D+L)^{-1}U = -Q^{-1}U \\
-    &= -
-    \begin{pmatrix}
-        5 & 0 & 0 \\
-        -3 & 5 & 0 \\
-        2 & 2 & 7
-    \end{pmatrix}^{-1}
-    \begin{pmatrix}
-        0 & -3 & 2 \\
-        0 & 0 & 2 \\
-        0 & 0 & 0
-    \end{pmatrix}
-    =
-    \begin{pmatrix}
-        0 & \frac{3}{5} & -\frac{2}{5} \\
-        0 & \frac{9}{25} & -\frac{16}{25} \\
-        0 & -\frac{48}{175} & \frac{52}{175}
-    \end{pmatrix}
+    -\alpha^5 A + \alpha^5 C &= 0 = \int_{-2}^2 x^5dx \\
+    \alpha^6 A + \alpha^6 C &= \frac{768}{25} \neq \frac{256}{7} = \int_{-2}^2 x^6 dx
 \end{aligned}
 $$
+可知该积分格式的代数精度为5阶
 
-\(c\) 法一: 根据书上定理5.4, 当A对称正定时, Gauss-Seidel迭代收敛.
-而实对称正定的等价条件之一便是所有顺序主子式大于0, 下面即验证A的所有顺序主子式大于零.
+---
 
-$$
-D_1 = 
-\begin{vmatrix}
-    5
-\end{vmatrix} = 5 > 0
-$$
-$$
-D_2 =
-\begin{vmatrix}
-    5 & -3 \\
-    -3 & 5
-\end{vmatrix} = 16 > 0
-$$
-$$
-D_3 =
-\begin{vmatrix}
-    5 & -3 & 2 \\
-    -3 & 5 & 2 \\
-    2 & 2 & 7
-\end{vmatrix} = 16 \times 7 - 2 \times
-\begin{vmatrix}
-    5 & 2 \\
-    -3 & 2
-\end{vmatrix} + 2 \times
-\begin{vmatrix}
-    -3 & 2 \\
-    5 & 2
-\end{vmatrix} = 48 > 0
-$$
-
-故A对称正定, Gauss-Seidel迭代收敛
-
-法二: 计算迭代矩阵$G$的谱半径
-
+法二: 注意观察可知, 该积分公式的积分区间对称, 且三点Gauss-Legendre积分公式包含零点,
+故可直接查询书上131页的表6.4得到
 $$
 \begin{aligned}
-    \det(\lambda I - G) &= 
-    \begin{vmatrix}
-        \lambda & -\frac{3}{5} & \frac{2}{5} \\
-        0 & \lambda - \frac{9}{25} & \frac{16}{25} \\
-        0 & \frac{48}{175} & \lambda - \frac{52}{175}
-    \end{vmatrix} = \lambda
-    \begin{vmatrix}
-        \lambda - \frac{9}{25} & \frac{16}{25} \\
-        \frac{48}{175} & \lambda - \frac{52}{175}
-    \end{vmatrix} \\
-    &= \lambda(\lambda^2 - \frac{23}{35} \lambda - \frac{12}{175}) = 0
+    \alpha &= \frac{(a + b) + (b - a) x_1^{(3)}}{2} = 2x_1^{(3)} = 1.549193 \\
+    A &= \frac{(b-a)}{2} \alpha_1^{(3)} = 2 \alpha_1^{(3)} = 1.111111 \\
+    B &= \frac{(b-a)}{2} \alpha_2^{(3)} = 2 \alpha_2^{(3)} = 1.777778 \\
+    C &= \frac{(b-a)}{2} \alpha_3^{(3)} = 2 \alpha_3^{(3)} = 1.111111
 \end{aligned}
 $$
+代数精度应为$2n - 1 = 5$阶
 
+b) Gauss积分误差为 (PPT ch62_4, 50页)
 $$
-\Rightarrow \ \lambda_1 = 0, \lambda_2 = \frac{23 + \sqrt{865}}{70}, \lambda_3 = \frac{23 - \sqrt{865}}{70}
+\begin{aligned}
+    E_n(f) &= I(f) - S(f) = \frac{f^{(2n)}(\xi)}{(2n)!} \int_a^b W(x) \omega_n^2 (x) dx \\
+           &= \frac{f^{(6)}(\xi)}{6!} \int_{-2}^2 (x - \alpha)^2 x^2 (x + \alpha)^2 dx \\
+           &= \frac{f^{(6)}(\xi)}{6!} \int_{-2}^2 (x^2 - \alpha^2)^2 x^2 dx \\
+           &= \frac{f^{(6)}(\xi)}{6!} \int_{-2}^2 (x^2 - \frac{12}{5})^2 x^2 dx \\
+           &= \frac{f^{(6)}(\xi)}{6!} \int_{-2}^2 x^6 - \frac{24}{5}x^4 + \frac{144}{25}x^2 dx \\
+           &= \frac{f^{(6)}(\xi)}{6!} \frac{1024}{175} = \frac{64}{7875} f^{(6)}(\xi), \  \xi \in [-2, 2]
+\end{aligned}
 $$
-
-$$
-\rho(G) = \frac{23 + \sqrt{865}}{70} = 0.748727 < 1
-$$
-
-故Gauss-Seidel迭代收敛
-
-另可以, 将$\lambda = -1, \lambda = 0, \lambda = 1$代入$f(\lambda) = \lambda^2 - \frac{23}{35} \lambda - \frac{12}{175}$中验证
-
-得到$f(-1) > 0, f(0) < 0, f(1) > 0$得到$f(\lambda)$在$(-1, 1)$间必有两个零点, 所以$|\lambda_2| < 1, |\lambda_3| < 1$

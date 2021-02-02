@@ -118,16 +118,19 @@ $$
 \end{aligned}
 $$
 
-该格式局部截断误差为$O(h^5)\rightarrow$ 具有4阶精度, 起步计算时使用不少于 **三阶** 的格式
+该格式局部截断误差为$O(h^5)\rightarrow$ 具有4阶精度
+* 起步计算时, 为了不影响格式的整体截断误差, 应使用不少于 **三阶** 的格式(课本152页)
+* 预估-校正时尽量使用 **四阶** 的显格式作为预估步的计算
 
-可使用三阶Runge-Kutta公式
+可使用四阶Runge-Kutta公式
 $$
 \left\{
 \begin{aligned}
-    \bar{y}_{n+1} &= y_n + \frac{h}{6} (k_1 + 4k_2 + k_3) \\
+    \bar{y}_{n+1} &= y_n + \frac{h}{6} (k_1 + 2k_2 + 2k_3 + k_4) \\
                   &k_1 = f(x_n, y_n)  \\
                   &k_2 = f(x_n + \frac{1}{2}h, y_n + \frac{1}{2}h k_1) \\
-                  &k_3 = f(x_n + h, y_n -hk_1 + 2hk_2) \\
+                  &k_3 = f(x_n + \frac{1}{2}h, y_n + \frac{1}{2}hk_2) \\
+                  &k_4 = f(x_n + h, y_n + hk_3) \\
     y_{n+1} &= y_{n-1} + h[\frac{1}{3} f(x_{n+1}, \bar{y}_{n+1}) + \frac{4}{3}f(x_n, y_n) + \frac{1}{3}f(x_{n-1}, y_{n-1})]
 \end{aligned}
 \right.
