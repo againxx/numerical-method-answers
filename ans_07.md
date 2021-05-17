@@ -100,6 +100,7 @@ $$
 (b) 注意, A不是~~严格~~对角优, 不能以此作为收敛性的判断条件.
 迭代收敛的 **充分必要** 条件是迭代矩阵的谱半径$\rho(R) = \max\limits_{1\leq i \leq n}|\lambda_i| < 1$
 
+法一:
 $$
 \begin{aligned}
     \det(\lambda I - R) &=
@@ -135,6 +136,14 @@ $$
 $$
 
 故而, $\rho(R) = \max\limits_{1\leq i \leq 4}|\lambda_i| = 0.809017 < 1$, Jacobi迭代收敛.
+
+法二:
+
+注意到 $\lVert R \rVert_1 = 1$, 可知$\max|\lambda_i| = \rho(R) \leq \lVert R \rVert_1 = 1$, 接下来即证$\forall \lambda_i \neq \pm1$
+
+若$\exists \lambda_i = 1$ 或 $-1$, 则$\det(I-R) = 0$ 或 $\det(I+R) = 0$, 通过验证这两个行列式不为0
+
+即可证明$\rho(R) < 1$
 
 ---
 
