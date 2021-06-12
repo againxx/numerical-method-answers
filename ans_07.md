@@ -137,7 +137,7 @@ $$
 
 故而, $\rho(R) = \max\limits_{1\leq i \leq 4}|\lambda_i| = 0.809017 < 1$, Jacobi迭代收敛.
 
-法二:
+法二: (**有缺陷**, 没有考虑$\lambda_i$可能是复数的情况, 此时$\lambda_i$不能通过枚举1和-1来验证谱半径小于1)
 
 注意到 $\lVert R \rVert_1 = 1$, 可知$\max|\lambda_i| = \rho(R) \leq \lVert R \rVert_1 = 1$, 接下来即证$\forall \lambda_i \neq \pm1$
 
