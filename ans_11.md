@@ -1,6 +1,6 @@
 # 课后作业11
 
-#### 1. 试推导如下Runge-Kutta公式的局部截断误差和精度 (提示: 利用二元函数的Taylor展开). (12分)
+#### 1. 试推导如下Runge-Kutta公式的局部截断误差和精度 (提示: 利用二元函数的Taylor展开). (10分)
 $$
 \left\{
 \begin{aligned}
@@ -62,7 +62,7 @@ $$
 
 ---
 
-#### 2. 讨论梯形格式$y_{n+1} = y_n + \frac{h}{2}[f(x_n, y_n) + f(x_{n+1}, y_{n+1})]$的绝对稳定性($h>0$). (8分)
+#### 2. 讨论梯形格式$y_{n+1} = y_n + \frac{h}{2}[f(x_n, y_n) + f(x_{n+1}, y_{n+1})]$的绝对稳定性($h>0$). (10分)
 解: 误差方程为
 $$
 \rho_{n+1} = \rho_n + \frac{\lambda h}{2}(\rho_n + \rho_{n+1})
@@ -77,3 +77,92 @@ $$
 由于 $Re(\lambda) < 0$, 对任意$h$, 恒有$\left| \frac{\rho_{n+1}}{\rho_n} \right| = \left| \frac{2 + \lambda h}{2 - \lambda h} \right| < 1$
 
 因此梯形格式的稳定区域是整个左半复平面, 为无条件绝对稳定.
+
+---
+
+#### 3. 用幂法估算下面矩阵的按模最大的特征值和相应的特征向量(取初始向量$(1,1)^T$, 迭代5次即可). (6分)
+$$
+A =
+\begin{pmatrix}
+    2 & 2 \\
+    1 & 4
+\end{pmatrix}
+$$
+
+解:
+$$
+X^{(0)} = \left( \begin{matrix} 1 \\ 1 \end{matrix}\right),
+X^{(1)} = A \cdot X^{(0)} = \left(\begin{matrix} 4 \\ 5 \end{matrix}\right),
+X^{(2)} = A \cdot X^{(1)} = \left(\begin{matrix} 18 \\ 24 \end{matrix}\right),
+$$
+$$
+X^{(3)} = A \cdot X^{(2)} = \left(\begin{matrix} 84 \\ 114 \end{matrix}\right),
+X^{(4)} = A \cdot X^{(3)} = \left(\begin{matrix} 396 \\ 540 \end{matrix}\right),
+$$
+$$
+X^{(5)} = A \cdot X^{(4)} = \left(\begin{matrix} 1872 \\ 2556 \end{matrix}\right),
+$$
+
+观察前后两个向量对应分量的比值
+$$
+\begin{aligned}
+    \frac{x_1^{(5)}}{x_1^{(4)}} &= \frac{1872}{396} = 4.727273,
+    &\frac{x_2^{(5)}}{x_2^{(4)}} = \frac{2556}{540} = 4.733333  \\
+    \frac{x_1^{(4)}}{x_1^{(3)}} &= \frac{396}{84} = 4.714286,
+    &\frac{x_2^{(4)}}{x_2^{(3)}} = \frac{540}{114} = 4.736842 \\
+\end{aligned}
+$$
+
+可以看到比值趋于一个稳定的值, 即按模最大的特征值一个,
+
+得到特征值 $\lambda_1 \approx 4.7273$, 特征向量$X^{(5)} = (1872, 2556)^T$
+
+---
+
+#### 4. 考虑用Jacobi方法计算矩阵A的全部特征值. 求对A作第一次Givens相似变换时的Givens变换矩阵(要求相应的计算效率最高). (6分)
+$$
+A =
+\begin{pmatrix}
+    3 & 1 & 2 \\
+    1 & 5 & 0 \\
+    2 & 0 & 7
+\end{pmatrix}
+$$
+
+解: 为了计算效率最高, 可以选取$p=1, q=3$, 构造Givens变换矩阵形式如下
+$$
+Q(1, 3, \theta) =
+\begin{pmatrix}
+    \cos\theta & 0 & \sin\theta \\
+    0 & 1 & 0 \\
+    -\sin\theta & 0 & \cos\theta
+\end{pmatrix}
+$$
+
+做一次变换后, $B = Q^T A Q$, 可得到
+$$
+b_{13} = b_{31} = 2\cos2\theta + \frac{3 - 7}{2}\sin2\theta = 2\cos 2\theta - 2\sin 2\theta
+$$
+
+令$b_{13} = b_{31} = 0$, 可得$t^2 + 2t - 1 = 0$, 其中$t = \tan \theta$
+
+求得$t = -1 + \sqrt{2}$ (绝对值较小的根)
+
+$$
+\left\{
+\begin{aligned}
+    \cos \theta &= \frac{1}{\sqrt{1 + t^2}} = \frac{1}{\sqrt{4-2\sqrt{2}}} = 0.92388 \\
+    \sin \theta &= \frac{t}{\sqrt{1 + t^2}} = \frac{\sqrt{2} - 1}{\sqrt{4-2\sqrt{2}}} = 0.38268
+\end{aligned}
+\right.
+$$
+
+最后得到Givens变换矩阵如下:
+$$
+Q(1, 3) =
+\begin{pmatrix}
+    0.92388 & 0 & 0.38268 \\
+    0 & 1 & 0 \\
+    -0.38268 & 0 & 0.92388
+\end{pmatrix}
+$$
